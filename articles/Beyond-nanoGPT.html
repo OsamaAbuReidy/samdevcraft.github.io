@@ -45,196 +45,146 @@
     th {
       background-color: #f2f2f2;
     }
+    .container {
+        display: flex;
+        flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+    }
+    .table-of-contents {
+        flex: 0 0 250px; /* Fixed width for TOC, won't grow/shrink */
+        margin-right: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        align-self: flex-start; /* Sticks to the top */
+        top: 20px; /* Adjust as needed for fixed positioning */
+        position: sticky; /* Make TOC sticky */
+        max-height: calc(100vh - 40px); /* Limit height and allow scrolling if too long */
+        overflow-y: auto; /* Enable scrolling for TOC */
+    }
+    .article-content {
+        flex: 1; /* Takes up remaining space */
+        min-width: 300px; /* Minimum width for article content */
+    }
+    @media (max-width: 768px) {
+        .table-of-contents {
+            position: static; /* Remove sticky on small screens */
+            max-height: none;
+            overflow-y: visible;
+            flex-basis: 100%; /* Full width on small screens */
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    }
   </style>
 </head>
 <body>
   <h1>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</h1>
-  <p>Beyond-nanoGPT is an open-source software repository designed to bridge the gap between foundational understanding of deep learning — exemplified by projects like nanoGPT — and the practical implementation knowledge required for advanced artificial intelligence (AI) research. Developed by Tanishq Kumar, the project provides a comprehensive collection of modern deep learning techniques implemented from scratch in PyTorch, with an emphasis on minimalism, extensive annotation, and self-contained demonstrations.</p>
 
-  <h2>1. Background and Motivation</h2>
-  <p>The field of deep learning, particularly large language models (LLMs), has experienced rapid advancements. While numerous introductory resources and simplified implementations (e.g., nanoGPT, which focuses on the core GPT architecture) exist, aspiring AI researchers often face a significant hurdle: understanding and replicating more complex, contemporary techniques prevalent in cutting-edge research. This gap stems from the abstract nature of research papers and the specialized knowledge required to translate theory into functional code. Beyond-nanoGPT addresses this by offering a practical, code-centric learning pathway that helps users grasp intricate deep learning architectures and algorithms through direct implementation.</p>
+  <div class="container">
+    <div class="table-of-contents">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#background-and-motivation">1. Background and Motivation</a></li>
+        <li><a href="#core-philosophy-and-design-principles">2. Core Philosophy and Design Principles</a></li>
+        <li><a href="#key-features-and-implemented-techniques">3. Key Features and Implemented Techniques</a>
+          <ul>
+            <li><a href="#large-language-model-llm-enhancements">3.1 Large Language Model (LLM) Enhancements</a></li>
+            <li><a href="#generative-models">3.2 Generative Models</a></li>
+            <li><a href="#reinforcement-learning-rl">3.3 Reinforcement Learning (RL)</a></li>
+            <li><a href="#mlsys-machine-learning-systems">3.4 MLSys (Machine Learning Systems)</a></li>
+            <li><a href="#agents-and-tools">3.5 Agents and Tools</a></li>
+          </ul>
+        </li>
+        <li><a href="#target-audience-and-impact">4. Target Audience and Impact</a></li>
+        <li><a href="#future-development">5. Future Development</a></li>
+        <li><a href="#getting-started">6. Getting Started</a></li>
+        <li><a href="#conclusion">7. Conclusion</a></li>
+      </ul>
+    </div>
 
-  <h2>2. Core Philosophy and Design Principles</h2>
-  <p>Beyond-nanoGPT adheres to several design principles to maximize its educational utility:</p>
-  <ul>
-    <li><strong>From-Scratch Implementation:</strong> Every component, from the fundamentals to advanced architectures, is implemented without relying on high-level libraries that abstract away internal mechanisms. This ensures deep understanding.</li>
-    <li><strong>Minimalism:</strong> The codebase remains concise and free from unnecessary complexity, allowing learners to focus on the core logic of each algorithm.</li>
-    <li><strong>Extensive Annotation:</strong> The code is heavily commented to explain subtle details, design choices, and the intuition behind implementations — something often lacking in production-grade repositories.</li>
-    <li><strong>Self-Contained Demos:</strong> Each implementation includes a working demo, enabling users to observe the behavior of the code in practice.</li>
-    <li><strong>Modularity:</strong> The repo is structured to let users explore components independently or combine them to build more complex systems.</li>
-  </ul>
+    <div class="article-content">
+      <p>Beyond-nanoGPT is an open-source software repository designed to bridge the gap between foundational understanding of deep learning — exemplified by projects like nanoGPT — and the practical implementation knowledge required for advanced artificial intelligence (AI) research. Developed by Tanishq Kumar, the project provides a comprehensive collection of modern deep learning techniques implemented from scratch in PyTorch, with an emphasis on minimalism, extensive annotation, and self-contained demonstrations.</p>
 
-  <h2>3. Key Features and Implemented Techniques</h2>
-  <p>The repository covers a wide range of modern deep learning techniques and is actively updated. As of its initial public release, it includes:</p>
+      <h2 id="background-and-motivation">1. Background and Motivation</h2>
+      <p>The field of deep learning, particularly large language models (LLMs), has experienced rapid advancements. While numerous introductory resources and simplified implementations (e.g., nanoGPT, which focuses on the core GPT architecture) exist, aspiring AI researchers often face a significant hurdle: understanding and replicating more complex, contemporary techniques prevalent in cutting-edge research. This gap stems from the abstract nature of research papers and the specialized knowledge required to translate theory into functional code. Beyond-nanoGPT addresses this by offering a practical, code-centric learning pathway that helps users grasp intricate deep learning architectures and algorithms through direct implementation.</p>
 
-  <h3>3.1 Large Language Model (LLM) Enhancements</h3>
-  <ul>
-    <li><strong>KV Caching (Key-Value Caching):</strong> Optimizes Transformer decoding by storing pre-computed key and value states to speed up inference.</li>
-    <li><strong>Linear Attention:</strong> Reduces the quadratic complexity of self-attention using kernel-based or approximation methods.</li>
-    <li><strong>Speculative Decoding:</strong> Speeds up inference by using a smaller model to predict sequences that are verified in parallel by a larger model.</li>
-    <li><strong>Architectural Variants:</strong> Includes alternatives to standard GPT models, possibly including ViTs or MLP-Mixers.</li>
-  </ul>
+      <h2 id="core-philosophy-and-design-principles">2. Core Philosophy and Design Principles</h2>
+      <p>Beyond-nanoGPT adheres to several design principles to maximize its educational utility:</p>
+      <ul>
+        <li><strong>From-Scratch Implementation:</strong> Every component, from the fundamentals to advanced architectures, is implemented without relying on high-level libraries that abstract away internal mechanisms. This ensures deep understanding.</li>
+        <li><strong>Minimalism:</strong> The codebase remains concise and free from unnecessary complexity, allowing learners to focus on the core logic of each algorithm.</li>
+        <li><strong>Extensive Annotation:</strong> The code is heavily commented to explain subtle details, design choices, and the intuition behind implementations — something often lacking in production-grade repositories.</li>
+        <li><strong>Self-Contained Demos:</strong> Each implementation includes a working demo, enabling users to observe the behavior of the code in practice.</li>
+        <li><strong>Modularity:</strong> The repo is structured to let users explore components independently or combine them to build more complex systems.</li>
+      </ul>
 
-  <h3>3.2 Generative Models</h3>
-  <ul>
-    <li><strong>Diffusion Transformers:</strong> Combine diffusion models with Transformers for iterative generation of high-quality data.</li>
-    <li><strong>Flow Matching Algorithms:</strong> Use ODE-based transformations from simple priors to complex data distributions — an alternative to GANs and VAEs.</li>
-  </ul>
+      <h2 id="key-features-and-implemented-techniques">3. Key Features and Implemented Techniques</h2>
+      <p>The repository covers a wide range of modern deep learning techniques and is actively updated. As of its initial public release, it includes:</p>
 
-  <h3>3.3 Reinforcement Learning (RL)</h3>
-  <ul>
-    <li><strong>AlphaZero:</strong> Combines Monte Carlo Tree Search (MCTS) with deep networks for planning and learning, as popularized in board games.</li>
-    <li><strong>Model Predictive Control (MPC):</strong> Predicts future outcomes over a horizon to optimize control actions.</li>
-    <li><strong>Expert Iteration:</strong> Iteratively learns a policy from an expert planner like MCTS.</li>
-    <li><strong>PETS (Probabilistic Ensembles with Trajectory Sampling):</strong> Uses an ensemble of dynamics models to sample and plan optimal actions.</li>
-    <li><strong>Proximal Policy Optimization (PPO):</strong> A stable, effective RL method that limits drastic policy updates.</li>
-  </ul>
+      <h3 id="large-language-model-llm-enhancements">3.1 Large Language Model (LLM) Enhancements</h3>
+      <ul>
+        <li><strong>KV Caching (Key-Value Caching):</strong> Optimizes Transformer decoding by storing pre-computed key and value states to speed up inference.</li>
+        <li><strong>Linear Attention:</strong> Reduces the quadratic complexity of self-attention using kernel-based or approximation methods.</li>
+        <li><strong>Speculative Decoding:</strong> Speeds up inference by using a smaller model to predict sequences that are verified in parallel by a larger model.</li>
+        <li><strong>Architectural Variants:</strong> Includes alternatives to standard GPT models, possibly including ViTs or MLP-Mixers.</li>
+      </ul>
 
-  <h3>3.4 MLSys (Machine Learning Systems)</h3>
-  <ul>
-    <li><strong>Distributed Data Parallel (DDP):</strong> Scales training across GPUs by synchronizing gradients between model replicas.</li>
-    <li><strong>Tensor Parallelism:</strong> Splits layers across devices for training very large models.</li>
-    <li><strong>Ring Attention (Context Parallel):</strong> Distributes attention computations across devices in a ring structure for handling long contexts.</li>
-    <li><strong>Paged Attention:</strong> Improves memory efficiency for key-value caches, enabling longer sequences and larger batches.</li>
-    <li><strong>Flash Attention:</strong> Fast and memory-efficient attention using custom kernels.</li>
-    <li><strong>GPU Communication Algorithms:</strong> Implements collective communication primitives like all-reduce, scatter, and gather.</li>
-  </ul>
+      <h3 id="generative-models">3.2 Generative Models</h3>
+      <ul>
+        <li><strong>Diffusion Transformers:</strong> Combine diffusion models with Transformers for iterative generation of high-quality data.</li>
+        <li><strong>Flow Matching Algorithms:</strong> Use ODE-based transformations from simple priors to complex data distributions — an alternative to GANs and VAEs.</li>
+      </ul>
 
-  <h3>3.5 Agents and Tools</h3>
-  <ul>
-    <li><strong>Minimal Coding Agent:</strong> An AI agent that can autonomously write code, manage Git workflows, and create pull requests.</li>
-    <li><strong>Tool Use & Sandboxing:</strong> Enables controlled LLM interaction with tools like search engines or interpreters.</li>
-    <li><strong>ReAct (Reasoning + Acting):</strong> Combines chain-of-thought reasoning with action execution and tool use for complex tasks.</li>
-  </ul>
+      <h3 id="reinforcement-learning-rl">3.3 Reinforcement Learning (RL)</h3>
+      <ul>
+        <li><strong>AlphaZero:</strong> Combines Monte Carlo Tree Search (MCTS) with deep networks for planning and learning, as popularized in board games.</li>
+        <li><strong>Model Predictive Control (MPC):</strong> Predicts future outcomes over a horizon to optimize control actions.</li>
+        <li><strong>Expert Iteration:</strong> Iteratively learns a policy from an expert planner like MCTS.</li>
+        <li><strong>PETS (Probabilistic Ensembles with Trajectory Sampling):</strong> Uses an ensemble of dynamics models to sample and plan optimal actions.</li>
+        <li><strong>Proximal Policy Optimization (PPO):</strong> A stable, effective RL method that limits drastic policy updates.</li>
+      </ul>
 
-  <h2>4. Target Audience and Impact</h2>
-  <p>Beyond-nanoGPT is ideal for:</p>
-  <ul>
-    <li><strong>Deep Learning Beginners:</strong> Those with basic understanding looking to implement more advanced ideas.</li>
-    <li><strong>Aspiring AI Researchers:</strong> Individuals aiming to break into AI research by getting hands-on with the latest techniques.</li>
-    <li><strong>Educators:</strong> Those seeking practical examples to teach modern AI concepts.</li>
-  </ul>
-  <p>Its impact lies in lowering the barrier to advanced AI knowledge through a clean, readable, and practical codebase. It enables learners to not just read about but build state-of-the-art systems.</p>
+      <h3 id="mlsys-machine-learning-systems">3.4 MLSys (Machine Learning Systems)</h3>
+      <ul>
+        <li><strong>Distributed Data Parallel (DDP):</strong> Scales training across GPUs by synchronizing gradients between model replicas.</li>
+        <li><strong>Tensor Parallelism:</strong> Splits layers across devices for training very large models.</li>
+        <li><strong>Ring Attention (Context Parallel):</strong> Distributes attention computations across devices in a ring structure for handling long contexts.</li>
+        <li><strong>Paged Attention:</strong> Improves memory efficiency for key-value caches, enabling longer sequences and larger batches.</li>
+        <li><strong>Flash Attention:</strong> Fast and memory-efficient attention using custom kernels.</li>
+        <li><strong>GPU Communication Algorithms:</strong> Implements collective communication primitives like all-reduce, scatter, and gather.</li>
+      </ul>
 
-  <h2>5. Future Development</h2>
-  <p>The creator is actively maintaining and expanding the repository. Contributions and feedback are encouraged, making this a living project aligned with ongoing research trends in deep learning.</p>
+      <h3 id="agents-and-tools">3.5 Agents and Tools</h3>
+      <ul>
+        <li><strong>Minimal Coding Agent:</strong> An AI agent that can autonomously write code, manage Git workflows, and create pull requests.</li>
+        <li><strong>Tool Use & Sandboxing:</strong> Enables controlled LLM interaction with tools like search engines or interpreters.</li>
+        <li><strong>ReAct (Reasoning + Acting):</strong> Combines chain-of-thought reasoning with action execution and tool use for complex tasks.</li>
+      </ul>
 
-  <h2>6. Getting Started</h2>
-  <pre><code class="language-bash">git clone https://github.com/tanmaykm/Beyond-nanoGPT
+      <h2 id="target-audience-and-impact">4. Target Audience and Impact</h2>
+      <p>Beyond-nanoGPT is ideal for:</p>
+      <ul>
+        <li><strong>Deep Learning Beginners:</strong> Those with basic understanding looking to implement more advanced ideas.</li>
+        <li><strong>Aspiring AI Researchers:</strong> Individuals aiming to break into AI research by getting hands-on with the latest techniques.</li>
+        <li><strong>Educators:</strong> Those seeking practical examples to teach modern AI concepts.</li>
+      </ul>
+      <p>Its impact lies in lowering the barrier to advanced AI knowledge through a clean, readable, and practical codebase. It enables learners to not just read about but build state-of-the-art systems.</p>
+
+      <h2 id="future-development">5. Future Development</h2>
+      <p>The creator is actively maintaining and expanding the repository. Contributions and feedback are encouraged, making this a living project aligned with ongoing research trends in deep learning.</p>
+
+      <h2 id="getting-started">6. Getting Started</h2>
+      <pre><code class="language-bash">git clone https://github.com/tanmaykm/Beyond-nanoGPT
 cd Beyond-nanoGPT
 python llms/speculative_decoding.py</code></pre>
 
-  <h2>7. Conclusion</h2>
-  <p>Beyond-nanoGPT is a valuable resource for anyone looking to move past basic deep learning concepts and dive into the practical implementation of advanced AI techniques. Its focus on clarity, from-scratch implementations, and modern research topics makes it a unique and essential tool for self-education and research.</p>
+      <h2 id="conclusion">7. Conclusion</h2>
+      <p>Beyond-nanoGPT is a valuable resource for anyone looking to move past basic deep learning concepts and dive into the practical implementation of advanced AI techniques. Its focus on clarity, from-scratch implementations, and modern research topics makes it a unique and essential tool for self-education and research.</p>
 
-  <p><a href="https://github.com/tanmaykm/Beyond-nanoGPT">Visit the Beyond-nanoGPT GitHub Repository</a></p>
+      <p><a href="https://github.com/tanmaykm/Beyond-nanoGPT">Visit the Beyond-nanoGPT GitHub Repository</a></p>
+    </div>
+  </div>
 
-</body>
-</html>
-
-<body>
-  <h1>🔍 Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</h1>
-  <p><strong>Beyond-nanoGPT</strong> is an open-source project by <strong>Tanishq Kumar</strong> designed to bridge the gap between minimalistic GPT implementations (like <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>) and the hands-on expertise needed for cutting-edge AI research. It offers an educational and practical deep dive into modern AI architectures, with everything implemented <strong>from scratch</strong> in PyTorch and organized for clarity, modularity, and experimentation.</p>
-
-  <h2>🚀 1. Motivation: Why Beyond-nanoGPT?</h2>
-  <p>While nanoGPT provides a great starting point, many aspiring researchers struggle to implement more advanced methods from papers. <strong>Beyond-nanoGPT</strong> addresses this by offering:</p>
-  <ul>
-    <li>Modern deep learning algorithms (LLMs, generative models, RL, ML systems)</li>
-    <li>Minimal, annotated code</li>
-    <li>Executable demos for hands-on learning</li>
-  </ul>
-
-  <h2>🧱 2. Core Principles</h2>
-  <ul>
-    <li><strong>From-Scratch Implementation:</strong> All components are written using raw PyTorch.</li>
-    <li><strong>Minimalism:</strong> Code is clean and focused on essentials.</li>
-    <li><strong>Extensive Annotation:</strong> Each line is clearly explained.</li>
-    <li><strong>Modularity:</strong> Easily plug, mix, and test modules.</li>
-    <li><strong>Executable Demos:</strong> Includes ready-to-run notebooks and scripts.</li>
-  </ul>
-
-  <h2>🧠 3. Key Implementations and Techniques</h2>
-  <h3>3.1 Language Models</h3>
-  <ul>
-    <li>KV Caching</li>
-    <li>Linear Attention</li>
-    <li>Speculative Decoding</li>
-    <li>Transformer Variants</li>
-  </ul>
-
-  <h3>3.2 Generative Models</h3>
-  <ul>
-    <li>Diffusion Transformers</li>
-    <li>Flow Matching (ODE-based)</li>
-  </ul>
-
-  <h3>3.3 Reinforcement Learning</h3>
-  <ul>
-    <li>AlphaZero (with MCTS)</li>
-    <li>Model Predictive Control (MPC)</li>
-    <li>PETS</li>
-    <li>PPO</li>
-  </ul>
-
-  <h3>3.4 Machine Learning Systems</h3>
-  <ul>
-    <li>Distributed Data Parallel (DDP)</li>
-    <li>Tensor Parallelism</li>
-    <li>Ring Attention</li>
-    <li>Paged Attention</li>
-    <li>Flash Attention</li>
-    <li>Custom GPU Communication Primitives</li>
-  </ul>
-
-  <h3>3.5 Agents and Tools</h3>
-  <ul>
-    <li>Minimal Code-Generating Agent</li>
-    <li>Tool Use & Sandboxing</li>
-    <li>ReAct Agents (Reason + Act)</li>
-  </ul>
-
-  <h2>🎯 4. Who It’s For</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Audience</th>
-        <th>Why it’s valuable</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Beginner ML Researchers</td>
-        <td>Understand real implementations of research papers</td>
-      </tr>
-      <tr>
-        <td>Advanced Learners</td>
-        <td>Explore optimized code for cutting-edge methods</td>
-      </tr>
-      <tr>
-        <td>Educators</td>
-        <td>Ready-made examples for teaching and tutorials</td>
-      </tr>
-      <tr>
-        <td>Systems Engineers</td>
-        <td>Study advanced parallelization and performance optimization</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>🛠️ 5. Getting Started</h2>
-  <pre><code>git clone https://github.com/tanmaykm/Beyond-nanoGPT
-cd Beyond-nanoGPT
-python llms/speculative_decoding.py</code></pre>
-
-  <h2>🔮 6. Future Roadmap</h2>
-  <ul>
-    <li>Support for vision-language models</li>
-    <li>Benchmark training pipelines</li>
-    <li>New demos for emerging techniques</li>
-  </ul>
-
-  <h2>🧠 Final Thoughts</h2>
-  <p><strong>Beyond-nanoGPT</strong> is more than just code — it’s a training ground for the next generation of AI developers and researchers. With clear examples, optimized systems code, and ongoing updates, it's a must-bookmark repository.</p>
-  <p>🔗 <a href="https://github.com/tanmaykm/Beyond-nanoGPT">Visit the GitHub Repository</a></p>
 </body>
 </html>
