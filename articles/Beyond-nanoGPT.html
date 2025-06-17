@@ -6,17 +6,20 @@
   <title>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-    /* Basic Reset and Body Styles */
+    /* Global Styles & Reset */
+    html {
+        scroll-behavior: smooth; /* Enables smooth scrolling for all anchor links */
+    }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif; /* Prefer Inter font if available */
       line-height: 1.6;
       margin: 0;
-      padding: 0; /* Remove body padding, handled by container */
+      padding: 0;
       background-color: #f9f9f9;
       color: #333;
     }
 
-    /* Info Bar at the Top (mimicking ui-infobar) */
+    /* Info Bar at the Top */
     .info-bar {
       background-color: #f0f0f0;
       padding: 8px 20px;
@@ -26,12 +29,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Subtle shadow */
     }
     .info-bar .left-meta span {
       margin-right: 15px;
-    }
-    .info-bar .right-actions {
-      text-align: right;
     }
     .info-bar .ui-user-icon {
       display: inline-block;
@@ -56,42 +57,66 @@
       margin-left: 5px;
     }
 
-    /* Main Document Container (mimicking #doc .container .markdown-body) */
+    /* Main Document Container */
     .document-container {
-      max-width: 1200px; /* Adjust max-width as per your preference for overall content */
-      margin: 20px auto; /* Center the container and add vertical margin */
+      max-width: 1200px; /* Overall content width */
+      margin: 20px auto; /* Center the container */
       padding: 0 20px; /* Horizontal padding for responsiveness */
-      display: flex; /* Use flexbox for TOC and main article */
+      display: flex; /* Flexbox for TOC and main article */
       align-items: flex-start; /* Align items to the top */
       gap: 30px; /* Space between TOC and main article */
     }
 
-    /* Article Content Area (left-aligned) */
+    /* Article Content Area */
     .article-content {
-      flex: 1; /* Allows the article content to take up available space */
-      max-width: 800px; /* Max-width for readability within its flex container */
+      flex: 1; /* Allows content to take up available space */
+      max-width: 800px; /* Max-width for readability */
       background-color: #fff;
       padding: 30px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      min-width: 0; /* Allow content to shrink on small screens */
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* More prominent shadow */
+      min-width: 0; /* Allow shrinking on small screens */
     }
 
     /* General Content Styling */
     h1, h2, h3, h4 {
       color: #2c3e50;
-      scroll-margin-top: 70px; /* Offset for sticky header/TOC when linking */
+      padding-bottom: 5px; /* Space below headings */
+      margin-bottom: 15px; /* Space below headings */
+      scroll-margin-top: 80px; /* Offset for sticky info-bar and TOC */
+      border-bottom: 1px solid #eee; /* Light separator */
     }
+    h1 { font-size: 2.2em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.4em; }
+    h4 { font-size: 1.2em; }
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    ul {
+      margin-bottom: 1em;
+      padding-left: 25px; /* Default list indentation */
+    }
+
     code {
       background: #eef;
       padding: 2px 6px;
       border-radius: 4px;
+      font-family: 'Courier New', monospace; /* Monospace for code */
     }
     pre {
       background: #eee;
-      padding: 10px;
+      padding: 15px;
       overflow-x: auto;
-      border-radius: 5px;
+      border-radius: 8px;
+      margin-bottom: 1.5em;
+      border: 1px solid #ddd;
+    }
+    pre code {
+      background: none;
+      padding: 0;
     }
     a {
       color: #2980b9;
@@ -118,26 +143,27 @@
 
     /* Sidebar Table of Contents (TOC) Styles */
     .sidebar-toc {
-      flex: 0 0 250px; /* Fixed width for the TOC */
-      padding: 15px;
+      flex: 0 0 250px; /* Fixed width */
+      padding: 20px; /* Increased padding */
       background-color: #fff;
       border: 1px solid #ddd;
-      border-radius: 5px;
-      position: sticky; /* Makes the TOC sticky */
-      top: 20px; /* Distance from the top of the viewport when sticky */
-      max-height: calc(100vh - 40px); /* Limits height to viewport minus some padding */
-      overflow-y: auto; /* Adds scrollbar if TOC content overflows height */
-      font-size: 0.9em; /* Slightly smaller font for TOC for compactness */
-      order: 2; /* Puts TOC on the right side in flex container */
+      border-radius: 8px; /* Rounded corners */
+      position: sticky;
+      top: 20px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      font-size: 0.9em;
+      order: 2; /* Puts TOC on the right */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Consistent shadow */
     }
 
     .sidebar-toc h2 {
         margin-top: 0;
-        font-size: 1.1em;
-        color: #333;
-        padding-bottom: 5px;
+        font-size: 1.2em;
+        color: #2c3e50;
+        padding-bottom: 10px;
         border-bottom: 1px solid #eee;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .sidebar-toc ul {
@@ -147,51 +173,70 @@
       margin-bottom: 0;
     }
 
+    .sidebar-toc li {
+      margin-bottom: 5px; /* Spacing between main list items */
+    }
+
     .sidebar-toc li a {
       display: block;
-      padding: 5px 8px;
+      padding: 6px 10px; /* More padding for better click area */
       color: #555;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      border-radius: 3px;
+      border-radius: 5px; /* More rounded links */
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, font-weight 0.2s ease-in-out; /* Smoother transitions */
     }
 
     .sidebar-toc ul ul { /* Nested lists indentation */
-      padding-left: 15px;
-      margin-left: 5px;
-      border-left: 1px solid #eee;
+      padding-left: 18px; /* Deeper indentation */
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border-left: 2px solid #e0e0e0; /* Thicker, more prominent left border */
+      border-radius: 0 0 0 5px; /* Rounded bottom-left corner for the border */
     }
 
-    /* Active link style - You'd need JS to dynamically add/remove this */
+    .sidebar-toc ul ul li {
+      margin-bottom: 2px; /* Less spacing for sub-items */
+    }
+
+    /* Active link style */
     .sidebar-toc li.active > a {
-      color: #2980b9;
+      color: #fff; /* White text for active */
       font-weight: bold;
-      background-color: #e0eaf1;
+      background-color: #2980b9; /* Primary blue for active background */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for active item */
     }
 
     /* Hover effect for all TOC links */
     .sidebar-toc li a:hover {
-      background-color: #f0f0f0;
+      background-color: #e6f2fa; /* Lighter blue on hover */
+      color: #2980b9; /* Blue text on hover */
       text-decoration: none;
+    }
+
+    .sidebar-toc li.active > a:hover { /* Override hover for active item */
+        background-color: #246fa4; /* Darker blue on hover for active */
+        color: #fff;
     }
 
     /* TOC Menu at the bottom of the sidebar */
     .toc-menu {
-      margin-top: 15px;
-      padding-top: 10px;
+      margin-top: 20px;
+      padding-top: 15px;
       border-top: 1px solid #eee;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px; /* More space between menu items */
     }
 
     .toc-menu a {
       color: #2980b9;
-      font-size: 0.85em;
+      font-size: 0.9em;
       text-align: center;
-      padding: 3px 0;
-      border-radius: 3px;
+      padding: 5px 0;
+      border-radius: 5px;
+      transition: background-color 0.2s ease-in-out;
     }
 
     .toc-menu a:hover {
@@ -199,22 +244,23 @@
     }
 
     /* Responsive Adjustments */
-    @media (max-width: 992px) { /* Adjust breakpoint as needed for when columns stack */
+    @media (max-width: 992px) {
       .document-container {
-        flex-direction: column; /* Stack TOC and content vertically */
-        align-items: center; /* Center items when stacked */
-        padding: 0 10px; /* Less horizontal padding */
+        flex-direction: column;
+        align-items: center;
+        padding: 0 15px; /* Slightly more padding on small screens */
       }
       .sidebar-toc {
-        position: static; /* Remove sticky on small screens */
+        position: static;
         max-height: none;
         overflow-y: visible;
-        flex-basis: 100%; /* Take full width on small screens */
-        margin: 0 auto 20px auto; /* Center and add bottom margin */
-        width: 90%; /* Adjust width for small screens */
+        flex-basis: 100%;
+        margin: 0 auto 20px auto;
+        width: 95%; /* Adjust width for small screens */
+        padding: 15px;
       }
       .article-content {
-        max-width: 90%; /* Adjust max-width for smaller screens */
+        max-width: 95%; /* Adjust max-width for smaller screens */
         padding: 20px;
       }
     }
@@ -235,6 +281,7 @@
   </div>
 
   <div id="doc" class="document-container">
+    <!-- Article Content (Main Body) -->
     <div class="article-content markdown-body">
       <h1>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</h1>
 
@@ -319,25 +366,26 @@ python llms/speculative_decoding.py</code></pre>
       <p><a href="https://github.com/tanmaykm/Beyond-nanoGPT">Visit the Beyond-nanoGPT GitHub Repository</a></p>
     </div>
 
+    <!-- Sidebar Table of Contents -->
     <div class="sidebar-toc">
         <div class="toc-wrapper">
             <h2>Table of Contents</h2>
             <ul class="nav">
-                <li class="active"><a href="#background-and-motivation" smoothhashscroll="">1. Background and Motivation</a></li>
-                <li><a href="#core-philosophy-and-design-principles" smoothhashscroll="">2. Core Philosophy and Design Principles</a></li>
-                <li><a href="#key-features-and-implemented-techniques" smoothhashscroll="">3. Key Features and Implemented Techniques</a>
+                <li class="active"><a href="#background-and-motivation">1. Background and Motivation</a></li>
+                <li><a href="#core-philosophy-and-design-principles">2. Core Philosophy and Design Principles</a></li>
+                <li><a href="#key-features-and-implemented-techniques">3. Key Features and Implemented Techniques</a>
                     <ul class="nav">
-                        <li><a href="#large-language-model-llm-enhancements" smoothhashscroll="">3.1 Large Language Model (LLM) Enhancements</a></li>
-                        <li><a href="#generative-models" smoothhashscroll="">3.2 Generative Models</a></li>
-                        <li><a href="#reinforcement-learning-rl" smoothhashscroll="">3.3 Reinforcement Learning (RL)</a></li>
-                        <li><a href="#mlsys-machine-learning-systems" smoothhashscroll="">3.4 MLSys (Machine Learning Systems)</a></li>
-                        <li><a href="#agents-and-tools" smoothhashscroll="">3.5 Agents and Tools</a></li>
+                        <li><a href="#large-language-model-llm-enhancements">3.1 Large Language Model (LLM) Enhancements</a></li>
+                        <li><a href="#generative-models">3.2 Generative Models</a></li>
+                        <li><a href="#reinforcement-learning-rl">3.3 Reinforcement Learning (RL)</a></li>
+                        <li><a href="#mlsys-machine-learning-systems">3.4 MLSys (Machine Learning Systems)</a></li>
+                        <li><a href="#agents-and-tools">3.5 Agents and Tools</a></li>
                     </ul>
                 </li>
-                <li><a href="#target-audience-and-impact" smoothhashscroll="">4. Target Audience and Impact</a></li>
-                <li><a href="#future-development" smoothhashscroll="">5. Future Development</a></li>
-                <li><a href="#getting-started" smoothhashscroll="">6. Getting Started</a></li>
-                <li><a href="#conclusion" smoothhashscroll="">7. Conclusion</a></li>
+                <li><a href="#target-audience-and-impact">4. Target Audience and Impact</a></li>
+                <li><a href="#future-development">5. Future Development</a></li>
+                <li><a href="#getting-started">6. Getting Started</a></li>
+                <li><a href="#conclusion">7. Conclusion</a></li>
             </ul>
         </div>
         <div class="toc-menu">
@@ -347,5 +395,133 @@ python llms/speculative_decoding.py</code></pre>
         </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarToc = document.querySelector('.sidebar-toc');
+      const tocLinks = sidebarToc.querySelectorAll('a[href^="#"]');
+      // Observe h2 and h3 elements for active state. Add h4 if needed for deeper nesting.
+      const contentHeadings = document.querySelectorAll('.article-content h2, .article-content h3, .article-content h4');
+      const allTocListItems = sidebarToc.querySelectorAll('li');
+
+      // --- Smooth Scrolling ---
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault(); // Prevent default jump behavior and URL change to history
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            // Scroll smoothly to the target element
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+
+            // Update URL hash without adding to browser history
+            // This still updates the URL in the address bar, but won't interfere with the back button.
+            window.location.hash = targetId;
+          }
+        });
+      });
+
+      // --- Active Section Highlighting (using IntersectionObserver) ---
+      // A slightly more robust rootMargin to ensure a heading is clearly in view
+      const observerOptions = {
+        root: null, // viewport
+        rootMargin: '-20% 0px -60% 0px', // Top 20% and bottom 60% of viewport ignored for intersection
+        threshold: 0 // Trigger when element first enters/leaves root
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute('id');
+          const correspondingTocLink = document.querySelector(`.sidebar-toc a[href="#${id}"]`);
+
+          if (correspondingTocLink) {
+            const correspondingTocListItem = correspondingTocLink.closest('li');
+
+            if (entry.isIntersecting) {
+              // Remove active class from all items first
+              allTocListItems.forEach(item => item.classList.remove('active'));
+
+              // Add active class to the current item and its ancestors
+              let currentItem = correspondingTocListItem;
+              while (currentItem && currentItem !== sidebarToc) { // Stop when reaching the TOC root
+                currentItem.classList.add('active');
+                // Move up to the parent li of the current ul, if available
+                currentItem = currentItem.parentElement.closest('li');
+              }
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe all content headings
+      contentHeadings.forEach(heading => {
+        observer.observe(heading);
+      });
+
+      // --- "Back to top" and "Go to bottom" functionality ---
+      const backToTop = document.querySelector('.toc-menu .back-to-top');
+      const goToBottom = document.querySelector('.toc-menu .go-to-bottom');
+
+      if (backToTop) {
+        backToTop.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          window.location.hash = ''; // Clear hash when going to top
+        });
+      }
+
+      if (goToBottom) {
+        goToBottom.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+          });
+          window.location.hash = ''; // Clear hash or set to specific bottom hash
+        });
+      }
+
+      // --- "Expand all" / "Collapse all" functionality ---
+      const expandToggle = document.querySelector('.toc-menu .expand-toggle');
+      if (expandToggle) {
+        // Initially hide all nested ULs
+        const nestedUls = sidebarToc.querySelectorAll('ul.nav ul.nav');
+        nestedUls.forEach(ul => {
+            ul.style.display = 'none';
+        });
+
+        expandToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const nestedUls = sidebarToc.querySelectorAll('ul.nav ul.nav');
+
+          let anyHidden = false;
+          nestedUls.forEach(ul => {
+            if (ul.style.display === 'none' || ul.style.display === '') {
+              anyHidden = true;
+            }
+          });
+
+          if (anyHidden) {
+            nestedUls.forEach(ul => {
+              ul.style.display = 'block'; // Using 'block' for simplicity
+            });
+            expandToggle.textContent = 'Collapse all';
+          } else {
+            nestedUls.forEach(ul => {
+              ul.style.display = 'none';
+            });
+            expandToggle.textContent = 'Expand all';
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
