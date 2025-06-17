@@ -29,6 +29,10 @@
     }
     a {
       color: #2980b9;
+      text-decoration: none; /* Remove underline for links in TOC */
+    }
+    a:hover {
+      text-decoration: underline; /* Add underline on hover */
     }
     table {
       width: 100%;
@@ -45,36 +49,127 @@
     th {
       background-color: #f2f2f2;
     }
+
+    /* Container for the Two-Column Layout */
     .container {
-        display: flex;
-        flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+      display: flex;
+      flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+      justify-content: center; /* Center content horizontally */
     }
-    .table-of-contents {
-        flex: 0 0 250px; /* Fixed width for TOC, won't grow/shrink */
-        margin-right: 20px;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        align-self: flex-start; /* Sticks to the top */
-        top: 20px; /* Adjust as needed for fixed positioning */
-        position: sticky; /* Make TOC sticky */
-        max-height: calc(100vh - 40px); /* Limit height and allow scrolling if too long */
-        overflow-y: auto; /* Enable scrolling for TOC */
+
+    /* Table of Contents Styling */
+    .ui-affix-toc {
+      flex: 0 0 250px; /* Fixed width for TOC */
+      margin-right: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      align-self: flex-start; /* Sticks to the top of its flex container */
+      position: sticky; /* Make TOC sticky */
+      top: 20px; /* Distance from the top of the viewport when sticky */
+      max-height: calc(100vh - 40px); /* Limit height and allow scrolling if too long */
+      overflow-y: auto; /* Enable scrolling for TOC if content exceeds max-height */
+      font-size: 0.9em; /* Slightly smaller font for TOC */
     }
+
+    .ui-affix-toc .toc ul {
+      list-style: none; /* Remove bullet points */
+      padding-left: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .ui-affix-toc .toc li a {
+      display: block; /* Make links block level for better click area */
+      padding: 5px 0;
+      color: #555;
+      white-space: nowrap; /* Prevent wrapping of long titles */
+      overflow: hidden; /* Hide overflow for long titles */
+      text-overflow: ellipsis; /* Add ellipsis for hidden text */
+    }
+
+    .ui-affix-toc .toc ul ul { /* Nested lists */
+      padding-left: 15px; /* Indent sub-items */
+      margin-left: 5px; /* Add a bit more left margin */
+      border-left: 1px solid #eee; /* Visual indicator for nested items */
+    }
+
+    .ui-affix-toc .toc ul ul ul { /* Deeper nested lists (for invisable-node) */
+      padding-left: 0; /* No extra indent for invisable-node's child ul */
+      border-left: none; /* No border for invisable-node's child ul */
+    }
+
+    .ui-affix-toc .toc li.active > a {
+      color: #2980b9; /* Highlight active link */
+      font-weight: bold;
+    }
+
+    .ui-affix-toc .toc li a:hover {
+      background-color: #f0f0f0; /* Hover effect for links */
+      border-radius: 3px;
+    }
+
+    /* Special class for the extra ul wrapping as seen in the example */
+    .ui-affix-toc .toc li.invisable-node ul {
+        display: block; /* Ensure it's displayed, but no padding/border if inner ul is direct child of invisable-node */
+        padding-left: 0; /* Remove default padding for this specific nesting */
+        border-left: none; /* Remove border for this specific nesting */
+    }
+
+    /* TOC Menu at the bottom of the TOC box */
+    .toc-menu {
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* Space between menu items */
+    }
+
+    .toc-menu a {
+      color: #2980b9;
+      font-size: 0.85em;
+      text-align: center;
+      padding: 3px 0;
+    }
+
+    .toc-menu a:hover {
+      background-color: #e0eaf1;
+      border-radius: 3px;
+    }
+
+    /* Article Content Styling */
     .article-content {
-        flex: 1; /* Takes up remaining space */
-        min-width: 300px; /* Minimum width for article content */
+      flex: 1; /* Takes up remaining space */
+      min-width: 600px; /* Minimum width for article content to prevent squishing */
+      max-width: 800px; /* Max width for readability */
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    @media (max-width: 768px) {
-        .table-of-contents {
-            position: static; /* Remove sticky on small screens */
-            max-height: none;
-            overflow-y: visible;
-            flex-basis: 100%; /* Full width on small screens */
-            margin-right: 0;
-            margin-bottom: 20px;
-        }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) { /* Adjust breakpoint as needed */
+      .container {
+        flex-direction: column; /* Stack TOC and content vertically */
+        align-items: center; /* Center items when stacked */
+      }
+      .ui-affix-toc {
+        position: static; /* Remove sticky on small screens */
+        max-height: none;
+        overflow-y: visible;
+        flex-basis: 100%; /* Full width on small screens */
+        margin-right: 0;
+        margin-bottom: 20px;
+        width: 90%; /* Adjust width for small screens */
+      }
+      .article-content {
+        min-width: unset; /* Remove min-width constraint */
+        width: 90%; /* Adjust width for small screens */
+        padding: 20px;
+      }
     }
   </style>
 </head>
@@ -82,25 +177,35 @@
   <h1>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</h1>
 
   <div class="container">
-    <div class="table-of-contents">
-      <h2>Table of Contents</h2>
-      <ul>
-        <li><a href="#background-and-motivation">1. Background and Motivation</a></li>
-        <li><a href="#core-philosophy-and-design-principles">2. Core Philosophy and Design Principles</a></li>
-        <li><a href="#key-features-and-implemented-techniques">3. Key Features and Implemented Techniques</a>
-          <ul>
-            <li><a href="#large-language-model-llm-enhancements">3.1 Large Language Model (LLM) Enhancements</a></li>
-            <li><a href="#generative-models">3.2 Generative Models</a></li>
-            <li><a href="#reinforcement-learning-rl">3.3 Reinforcement Learning (RL)</a></li>
-            <li><a href="#mlsys-machine-learning-systems">3.4 MLSys (Machine Learning Systems)</a></li>
-            <li><a href="#agents-and-tools">3.5 Agents and Tools</a></li>
-          </ul>
-        </li>
-        <li><a href="#target-audience-and-impact">4. Target Audience and Impact</a></li>
-        <li><a href="#future-development">5. Future Development</a></li>
-        <li><a href="#getting-started">6. Getting Started</a></li>
-        <li><a href="#conclusion">7. Conclusion</a></li>
-      </ul>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print affix" data-spy="affix">
+        <div class="toc">
+            <ul class="nav">
+                <li class=""><a href="#background-and-motivation" title="1. Background and Motivation" smoothhashscroll="">1. Background and Motivation</a></li>
+                <li class=""><a href="#core-philosophy-and-design-principles" title="2. Core Philosophy and Design Principles" smoothhashscroll="">2. Core Philosophy and Design Principles</a></li>
+                <li class=""><a href="#key-features-and-implemented-techniques" title="3. Key Features and Implemented Techniques" smoothhashscroll="">3. Key Features and Implemented Techniques</a>
+                    <ul class="nav">
+                        <li class="invisable-node">
+                            <ul class="nav">
+                                <li><a href="#large-language-model-llm-enhancements" title="3.1 Large Language Model (LLM) Enhancements" smoothhashscroll="">3.1 Large Language Model (LLM) Enhancements</a></li>
+                                <li><a href="#generative-models" title="3.2 Generative Models" smoothhashscroll="">3.2 Generative Models</a></li>
+                                <li><a href="#reinforcement-learning-rl" title="3.3 Reinforcement Learning (RL)" smoothhashscroll="">3.3 Reinforcement Learning (RL)</a></li>
+                                <li><a href="#mlsys-machine-learning-systems" title="3.4 MLSys (Machine Learning Systems)" smoothhashscroll="">3.4 MLSys (Machine Learning Systems)</a></li>
+                                <li><a href="#agents-and-tools" title="3.5 Agents and Tools" smoothhashscroll="">3.5 Agents and Tools</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class=""><a href="#target-audience-and-impact" title="4. Target Audience and Impact" smoothhashscroll="">4. Target Audience and Impact</a></li>
+                <li class=""><a href="#future-development" title="5. Future Development" smoothhashscroll="">5. Future Development</a></li>
+                <li class=""><a href="#getting-started" title="6. Getting Started" smoothhashscroll="">6. Getting Started</a></li>
+                <li class=""><a href="#conclusion" title="7. Conclusion" smoothhashscroll="">7. Conclusion</a></li>
+            </ul>
+        </div>
+        <div class="toc-menu">
+            <a class="expand-toggle" href="#">Expand all</a>
+            <a class="back-to-top" href="#">Back to top</a>
+            <a class="go-to-bottom" href="#">Go to bottom</a>
+        </div>
     </div>
 
     <div class="article-content">
