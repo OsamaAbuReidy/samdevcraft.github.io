@@ -4,17 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
+    /* Basic Reset and Body Styles */
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
       margin: 0;
-      padding: 0 20px;
+      padding: 0; /* Remove body padding, handled by container */
       background-color: #f9f9f9;
       color: #333;
     }
+
+    /* Info Bar at the Top (mimicking ui-infobar) */
+    .info-bar {
+      background-color: #f0f0f0;
+      padding: 8px 20px;
+      border-bottom: 1px solid #ddd;
+      font-size: 0.85em;
+      color: #777;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .info-bar .left-meta span {
+      margin-right: 15px;
+    }
+    .info-bar .right-actions {
+      text-align: right;
+    }
+    .info-bar .ui-user-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-size: cover;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    .info-bar .ui-status-lastchange {
+      font-weight: bold;
+    }
+    .info-bar a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .info-bar a:hover {
+      text-decoration: underline;
+    }
+    .info-bar .fa {
+      margin-left: 5px;
+    }
+
+    /* Main Document Container (mimicking #doc .container .markdown-body) */
+    .document-container {
+      max-width: 1200px; /* Adjust max-width as per your preference for overall content */
+      margin: 20px auto; /* Center the container and add vertical margin */
+      padding: 0 20px; /* Horizontal padding for responsiveness */
+      display: flex; /* Use flexbox for TOC and main article */
+      align-items: flex-start; /* Align items to the top */
+      gap: 30px; /* Space between TOC and main article */
+    }
+
+    /* Article Content Area (left-aligned) */
+    .article-content {
+      flex: 1; /* Allows the article content to take up available space */
+      max-width: 800px; /* Max-width for readability within its flex container */
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      min-width: 0; /* Allow content to shrink on small screens */
+    }
+
+    /* General Content Styling */
     h1, h2, h3, h4 {
       color: #2c3e50;
+      scroll-margin-top: 70px; /* Offset for sticky header/TOC when linking */
     }
     code {
       background: #eef;
@@ -29,10 +95,10 @@
     }
     a {
       color: #2980b9;
-      text-decoration: none; /* Remove underline for links in TOC */
+      text-decoration: none;
     }
     a:hover {
-      text-decoration: underline; /* Add underline on hover */
+      text-decoration: underline;
     }
     table {
       width: 100%;
@@ -50,81 +116,74 @@
       background-color: #f2f2f2;
     }
 
-    /* Container for the Two-Column Layout */
-    .container {
-      display: flex;
-      flex-wrap: wrap; /* Allows content to wrap on smaller screens */
-      justify-content: center; /* Center content horizontally */
-    }
-
-    /* Table of Contents Styling */
-    .ui-affix-toc {
-      flex: 0 0 250px; /* Fixed width for TOC */
-      margin-right: 20px;
+    /* Sidebar Table of Contents (TOC) Styles */
+    .sidebar-toc {
+      flex: 0 0 250px; /* Fixed width for the TOC */
       padding: 15px;
       background-color: #fff;
       border: 1px solid #ddd;
       border-radius: 5px;
-      align-self: flex-start; /* Sticks to the top of its flex container */
-      position: sticky; /* Make TOC sticky */
+      position: sticky; /* Makes the TOC sticky */
       top: 20px; /* Distance from the top of the viewport when sticky */
-      max-height: calc(100vh - 40px); /* Limit height and allow scrolling if too long */
-      overflow-y: auto; /* Enable scrolling for TOC if content exceeds max-height */
-      font-size: 0.9em; /* Slightly smaller font for TOC */
+      max-height: calc(100vh - 40px); /* Limits height to viewport minus some padding */
+      overflow-y: auto; /* Adds scrollbar if TOC content overflows height */
+      font-size: 0.9em; /* Slightly smaller font for TOC for compactness */
+      order: 2; /* Puts TOC on the right side in flex container */
     }
 
-    .ui-affix-toc .toc ul {
-      list-style: none; /* Remove bullet points */
+    .sidebar-toc h2 {
+        margin-top: 0;
+        font-size: 1.1em;
+        color: #333;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+    }
+
+    .sidebar-toc ul {
+      list-style: none;
       padding-left: 0;
       margin-top: 0;
       margin-bottom: 0;
     }
 
-    .ui-affix-toc .toc li a {
-      display: block; /* Make links block level for better click area */
-      padding: 5px 0;
+    .sidebar-toc li a {
+      display: block;
+      padding: 5px 8px;
       color: #555;
-      white-space: nowrap; /* Prevent wrapping of long titles */
-      overflow: hidden; /* Hide overflow for long titles */
-      text-overflow: ellipsis; /* Add ellipsis for hidden text */
-    }
-
-    .ui-affix-toc .toc ul ul { /* Nested lists */
-      padding-left: 15px; /* Indent sub-items */
-      margin-left: 5px; /* Add a bit more left margin */
-      border-left: 1px solid #eee; /* Visual indicator for nested items */
-    }
-
-    .ui-affix-toc .toc ul ul ul { /* Deeper nested lists (for invisable-node) */
-      padding-left: 0; /* No extra indent for invisable-node's child ul */
-      border-left: none; /* No border for invisable-node's child ul */
-    }
-
-    .ui-affix-toc .toc li.active > a {
-      color: #2980b9; /* Highlight active link */
-      font-weight: bold;
-    }
-
-    .ui-affix-toc .toc li a:hover {
-      background-color: #f0f0f0; /* Hover effect for links */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       border-radius: 3px;
     }
 
-    /* Special class for the extra ul wrapping as seen in the example */
-    .ui-affix-toc .toc li.invisable-node ul {
-        display: block; /* Ensure it's displayed, but no padding/border if inner ul is direct child of invisable-node */
-        padding-left: 0; /* Remove default padding for this specific nesting */
-        border-left: none; /* Remove border for this specific nesting */
+    .sidebar-toc ul ul { /* Nested lists indentation */
+      padding-left: 15px;
+      margin-left: 5px;
+      border-left: 1px solid #eee;
     }
 
-    /* TOC Menu at the bottom of the TOC box */
+    /* Active link style - You'd need JS to dynamically add/remove this */
+    .sidebar-toc li.active > a {
+      color: #2980b9;
+      font-weight: bold;
+      background-color: #e0eaf1;
+    }
+
+    /* Hover effect for all TOC links */
+    .sidebar-toc li a:hover {
+      background-color: #f0f0f0;
+      text-decoration: none;
+    }
+
+    /* TOC Menu at the bottom of the sidebar */
     .toc-menu {
       margin-top: 15px;
       padding-top: 10px;
       border-top: 1px solid #eee;
       display: flex;
       flex-direction: column;
-      gap: 8px; /* Space between menu items */
+      gap: 8px;
     }
 
     .toc-menu a {
@@ -132,83 +191,53 @@
       font-size: 0.85em;
       text-align: center;
       padding: 3px 0;
+      border-radius: 3px;
     }
 
     .toc-menu a:hover {
       background-color: #e0eaf1;
-      border-radius: 3px;
     }
 
-    /* Article Content Styling */
-    .article-content {
-      flex: 1; /* Takes up remaining space */
-      min-width: 600px; /* Minimum width for article content to prevent squishing */
-      max-width: 800px; /* Max width for readability */
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 900px) { /* Adjust breakpoint as needed */
-      .container {
+    /* Responsive Adjustments */
+    @media (max-width: 992px) { /* Adjust breakpoint as needed for when columns stack */
+      .document-container {
         flex-direction: column; /* Stack TOC and content vertically */
         align-items: center; /* Center items when stacked */
+        padding: 0 10px; /* Less horizontal padding */
       }
-      .ui-affix-toc {
+      .sidebar-toc {
         position: static; /* Remove sticky on small screens */
         max-height: none;
         overflow-y: visible;
-        flex-basis: 100%; /* Full width on small screens */
-        margin-right: 0;
-        margin-bottom: 20px;
+        flex-basis: 100%; /* Take full width on small screens */
+        margin: 0 auto 20px auto; /* Center and add bottom margin */
         width: 90%; /* Adjust width for small screens */
       }
       .article-content {
-        min-width: unset; /* Remove min-width constraint */
-        width: 90%; /* Adjust width for small screens */
+        max-width: 90%; /* Adjust max-width for smaller screens */
         padding: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</h1>
+  <div class="info-bar unselectable hidden-print">
+    <small>
+      <span class="left-meta">
+        <span class="ui-lastchangeuser">
+          <i class="ui-user-icon small" style="background-image: url(https://docs.monadical.com/user/nick/avatar.svg);" data-toggle="tooltip" data-placement="right" title="nick"></i>
+        </span>
+        &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
+        <span class="ui-lastchange text-uppercase" data-createtime="Wed Feb 13 2019 22:27:14 GMT+0000 (Coordinated Universal Time)" data-updatetime="Fri May 02 2025 18:46:49 GMT+0000 (Coordinated Universal Time)" title="Fri, May 2, 2025 9:46 PM">a month ago</span>
+      </span>
+      <span class="right-actions">101032 views <a href="/s/blog/edit" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a></span>
+    </small>
+  </div>
 
-  <div class="container">
-    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print affix" data-spy="affix">
-        <div class="toc">
-            <ul class="nav">
-                <li class=""><a href="#background-and-motivation" title="1. Background and Motivation" smoothhashscroll="">1. Background and Motivation</a></li>
-                <li class=""><a href="#core-philosophy-and-design-principles" title="2. Core Philosophy and Design Principles" smoothhashscroll="">2. Core Philosophy and Design Principles</a></li>
-                <li class=""><a href="#key-features-and-implemented-techniques" title="3. Key Features and Implemented Techniques" smoothhashscroll="">3. Key Features and Implemented Techniques</a>
-                    <ul class="nav">
-                        <li class="invisable-node">
-                            <ul class="nav">
-                                <li><a href="#large-language-model-llm-enhancements" title="3.1 Large Language Model (LLM) Enhancements" smoothhashscroll="">3.1 Large Language Model (LLM) Enhancements</a></li>
-                                <li><a href="#generative-models" title="3.2 Generative Models" smoothhashscroll="">3.2 Generative Models</a></li>
-                                <li><a href="#reinforcement-learning-rl" title="3.3 Reinforcement Learning (RL)" smoothhashscroll="">3.3 Reinforcement Learning (RL)</a></li>
-                                <li><a href="#mlsys-machine-learning-systems" title="3.4 MLSys (Machine Learning Systems)" smoothhashscroll="">3.4 MLSys (Machine Learning Systems)</a></li>
-                                <li><a href="#agents-and-tools" title="3.5 Agents and Tools" smoothhashscroll="">3.5 Agents and Tools</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class=""><a href="#target-audience-and-impact" title="4. Target Audience and Impact" smoothhashscroll="">4. Target Audience and Impact</a></li>
-                <li class=""><a href="#future-development" title="5. Future Development" smoothhashscroll="">5. Future Development</a></li>
-                <li class=""><a href="#getting-started" title="6. Getting Started" smoothhashscroll="">6. Getting Started</a></li>
-                <li class=""><a href="#conclusion" title="7. Conclusion" smoothhashscroll="">7. Conclusion</a></li>
-            </ul>
-        </div>
-        <div class="toc-menu">
-            <a class="expand-toggle" href="#">Expand all</a>
-            <a class="back-to-top" href="#">Back to top</a>
-            <a class="go-to-bottom" href="#">Go to bottom</a>
-        </div>
-    </div>
+  <div id="doc" class="document-container">
+    <div class="article-content markdown-body">
+      <h1>Beyond-nanoGPT: A Practical Gateway to Advanced Deep Learning</h1>
 
-    <div class="article-content">
       <p>Beyond-nanoGPT is an open-source software repository designed to bridge the gap between foundational understanding of deep learning — exemplified by projects like nanoGPT — and the practical implementation knowledge required for advanced artificial intelligence (AI) research. Developed by Tanishq Kumar, the project provides a comprehensive collection of modern deep learning techniques implemented from scratch in PyTorch, with an emphasis on minimalism, extensive annotation, and self-contained demonstrations.</p>
 
       <h2 id="background-and-motivation">1. Background and Motivation</h2>
@@ -289,7 +318,34 @@ python llms/speculative_decoding.py</code></pre>
 
       <p><a href="https://github.com/tanmaykm/Beyond-nanoGPT">Visit the Beyond-nanoGPT GitHub Repository</a></p>
     </div>
-  </div>
 
+    <div class="sidebar-toc">
+        <div class="toc-wrapper">
+            <h2>Table of Contents</h2>
+            <ul class="nav">
+                <li class="active"><a href="#background-and-motivation" smoothhashscroll="">1. Background and Motivation</a></li>
+                <li><a href="#core-philosophy-and-design-principles" smoothhashscroll="">2. Core Philosophy and Design Principles</a></li>
+                <li><a href="#key-features-and-implemented-techniques" smoothhashscroll="">3. Key Features and Implemented Techniques</a>
+                    <ul class="nav">
+                        <li><a href="#large-language-model-llm-enhancements" smoothhashscroll="">3.1 Large Language Model (LLM) Enhancements</a></li>
+                        <li><a href="#generative-models" smoothhashscroll="">3.2 Generative Models</a></li>
+                        <li><a href="#reinforcement-learning-rl" smoothhashscroll="">3.3 Reinforcement Learning (RL)</a></li>
+                        <li><a href="#mlsys-machine-learning-systems" smoothhashscroll="">3.4 MLSys (Machine Learning Systems)</a></li>
+                        <li><a href="#agents-and-tools" smoothhashscroll="">3.5 Agents and Tools</a></li>
+                    </ul>
+                </li>
+                <li><a href="#target-audience-and-impact" smoothhashscroll="">4. Target Audience and Impact</a></li>
+                <li><a href="#future-development" smoothhashscroll="">5. Future Development</a></li>
+                <li><a href="#getting-started" smoothhashscroll="">6. Getting Started</a></li>
+                <li><a href="#conclusion" smoothhashscroll="">7. Conclusion</a></li>
+            </ul>
+        </div>
+        <div class="toc-menu">
+            <a class="expand-toggle" href="#">Expand all</a>
+            <a class="back-to-top" href="#">Back to top</a>
+            <a class="go-to-bottom" href="#">Go to bottom</a>
+        </div>
+    </div>
+  </div>
 </body>
 </html>
