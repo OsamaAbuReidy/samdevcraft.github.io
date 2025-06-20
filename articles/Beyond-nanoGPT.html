@@ -50,7 +50,8 @@
       color: #130f0e; /* Very dark brown for headings */
       padding-bottom: 10px; /* More padding below headings */
       margin-bottom: 25px; /* More space below headings */
-      scroll-margin-top: 20px;
+      /* Increased scroll-margin-top to ensure sticky TOC doesn't overlap headings */
+      scroll-margin-top: 80px; 
       border-bottom: 1px solid #adaca5; /* Light greyish-green border */
     }
     h1 { font-size: 2.3em; border-bottom: none; } /* Slightly smaller h1 */
@@ -310,7 +311,7 @@
         <li><strong>Ring Attention (Context Parallel):</strong> Distributes attention computations across devices in a ring structure for handling long contexts.</li>
         <li><strong>Paged Attention:</b> Improves memory efficiency for key-value caches, enabling longer sequences and larger batches.</li>
         <li><strong>Flash Attention:</strong> Fast and memory-efficient attention using custom kernels.</li>
-        <li><strong>GPU Communication Algorithms:</strong> Implements collective communication primitives like all-reduce, scatter, and gather.</li>
+        <li><strong>GPU Communication Algorithms:</b> Implements collective communication primitives like all-reduce, scatter, and gather.</li>
       </ul>
 
       <h3 id="agents-and-tools">3.5 Agents and Tools</h3>
