@@ -24,21 +24,21 @@
 
     /* Main Document Container */
     .document-container {
-      max-width: 1300px; /* Adjusted width for more side whitespace */
-      margin: 20px auto; /* Center the container */
-      padding: 0 30px; /* Increased horizontal padding for responsiveness */
+      max-width: 1400px; /* Increased width for more side whitespace */
+      margin: 20px auto; /* Center the container horizontally */
+      padding: 0 60px; /* Increased horizontal padding for overall whitespace */
       display: flex; /* Flexbox for TOC and main article */
       align-items: flex-start; /* Align items to the top */
       justify-content: space-between; /* Pushes article to left, TOC to far right */
-      gap: 60px; /* Increased space between article and TOC */
+      gap: 80px; /* Increased space between article and TOC */
     }
 
     /* Article Content Area */
     .article-content {
       flex: 1;
-      max-width: 800px; /* Main article width */
+      max-width: 750px; /* Adjusted width to leave more space */
       background-color: #fdfbf7; /* Slightly warmer off-white for better blend */
-      padding: 35px; /* Increased padding for more internal whitespace */
+      padding: 40px; /* Increased padding for more internal whitespace */
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Softer shadow for better blend */
       min-width: 0;
@@ -197,7 +197,7 @@
     .sidebar-toc li.active > a:hover { /* Override hover for active item */
         background-color: #5d5238; /* Dark warm brown on hover for active */
         color: white;
-        transform: translateX(3px); /* Maintain slide effect on hover for active */
+        transform: translateX(3px);
     }
 
     /* TOC Menu at the bottom of the sidebar (BUTTONS) */
