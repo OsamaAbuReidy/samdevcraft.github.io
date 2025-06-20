@@ -12,7 +12,7 @@
     }
     body {
       font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      line-height: 1.6;
+      line-height: 1.4; /* Further reduced line-height for compactness */
       margin: 0;
       padding: 0;
       background-color: #fcfbf8; /* Very light, slightly warm off-white for body background */
@@ -20,12 +20,13 @@
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect x="0" y="0" width="1" height="1" fill="%23f5f4f0" /><rect x="2" y="2" width="1" height="1" fill="%23f5f4f0" /></svg>');
       background-repeat: repeat;
       color: #130f0e; /* Very dark brown for main body text */
+      font-size: 0.9em; /* Further reduced base font size */
     }
 
     /* Main Document Container (now effectively for the article content only) */
     .document-container {
-      max-width: 800px; /* Defines the max width of the main content block */
-      margin: 20px auto; /* Center the article content horizontally */
+      max-width: 1000px; /* Increased width for a wider central content area */
+      margin: 15px auto; /* Reduced vertical margin, centered horizontally */
       padding: 0; /* Remove internal padding as it's handled by article-content */
       display: block; /* No longer a flex container for the TOC itself */
       position: relative; /* For positioning fixed TOC relative to it if needed for specific designs */
@@ -34,11 +35,11 @@
     /* Article Content Area */
     .article-content {
       width: 100%; /* Takes full width of its new parent container */
-      max-width: 750px; /* Actual content width, creates space for fixed TOC */
+      max-width: 700px; /* Increased actual content width */
       background-color: #fdfbf7; /* Slightly warmer off-white for better blend */
-      padding: 30px; /* Reduced padding for more compact internal whitespace */
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Softer shadow for better blend */
+      padding: 20px; /* Further reduced padding for more compact internal whitespace */
+      border-radius: 8px; /* Further less rounded */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06); /* Even softer shadow */
       min-width: 0;
       position: relative;
     }
@@ -46,40 +47,40 @@
     /* General Content Styling */
     h1, h2, h3, h4 {
       color: #130f0e; /* Very dark brown for headings */
-      padding-bottom: 8px; /* Slightly less padding below headings */
-      margin-bottom: 20px; /* Slightly less space below headings */
+      padding-bottom: 5px; /* Reduced padding below headings */
+      margin-bottom: 15px; /* Default margin-bottom for headings */
       /* Critical for sticky TOC: ensures heading isn't hidden behind it */
-      scroll-margin-top: 80px; 
+      scroll-margin-top: 60px; /* Adjusted for smaller header/TOC */
       border-bottom: 1px solid #adaca5; /* Light greyish-green border */
     }
-    h1 { font-size: 2.1em; border-bottom: none; } /* Slightly smaller h1 */
-    h2 { font-size: 1.7em; } /* Slightly smaller h2 */
-    h3 { font-size: 1.3em; } /* Slightly smaller h3 */
-    h4 { font-size: 1.1em; } /* Slightly smaller h4 */
+    h1 { font-size: 1.8em; border-bottom: none; } /* Smaller h1 */
+    h2 { font-size: 1.5em; margin-bottom: 30px; } /* Increased margin-bottom for H2 to create section spacing */
+    h3 { font-size: 1.2em; margin-bottom: 25px; } /* Increased margin-bottom for H3 */
+    h4 { font-size: 1em; margin-bottom: 20px; } /* Increased margin-bottom for H4 */
 
     p {
-      margin-bottom: 1.2em; /* Slightly less spacing between paragraphs */
-      font-size: 0.98em; /* Slightly smaller base font size */
+      margin-bottom: 0.9em; /* Further reduced spacing between paragraphs */
+      font-size: 0.92em; /* Adjusted to be slightly smaller than body base */
     }
 
     ul {
-      margin-bottom: 1.2em;
-      padding-left: 25px; /* Slightly less indentation */
+      margin-bottom: 0.9em;
+      padding-left: 18px; /* Further reduced indentation */
     }
 
     code {
       background: #f0f0eb; /* Lighter, warm background for inline code */
-      padding: 2px 6px; /* Slightly less padding */
-      border-radius: 4px; /* Slightly less rounded */
+      padding: 1px 4px; /* Further reduced padding */
+      border-radius: 2px; /* Further less rounded */
       font-family: 'Courier New', monospace;
-      font-size: 0.85em; /* Smaller inline code */
+      font-size: 0.75em; /* Smaller inline code */
     }
     pre {
       background: #ebe8e3; /* Earthy lighter background for code blocks */
-      padding: 18px; /* Slightly less padding */
+      padding: 12px; /* Further reduced padding */
       overflow-x: auto;
-      border-radius: 8px; /* Slightly less rounded */
-      margin-bottom: 2em; /* Slightly less margin below code blocks */
+      border-radius: 5px; /* Further less rounded */
+      margin-bottom: 1.5em; /* Further reduced margin below code blocks */
       border: 1px solid #dcdad5; /* Softer border */
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
@@ -99,8 +100,8 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 25px 0; /* Slightly less margin around tables */
-      border-radius: 8px;
+      margin: 18px 0; /* Reduced margin around tables */
+      border-radius: 5px; /* Further less rounded */
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
@@ -108,7 +109,7 @@
       border: 1px solid #dcdad5; /* Softer table borders */
     }
     th, td {
-      padding: 12px; /* Slightly less padding in table cells */
+      padding: 8px; /* Reduced padding in table cells */
       text-align: left;
     }
     th {
@@ -119,32 +120,29 @@
 
     /* Sidebar Table of Contents (TOC) Styles */
     .sidebar-toc {
-      width: 180px; /* Fixed width of TOC */
-      padding: 0px; /* Removed padding */
-      background-color: transparent; /* Removed background color */
-      border: none; /* Removed border */
-      border-radius: 0; /* Removed border-radius */
+      width: 180px; /* Increased TOC width */
+      padding: 0px; /* No padding */
+      background-color: transparent; /* Transparent background */
+      border: none; /* No border */
+      border-radius: 0; /* No border-radius */
       position: fixed; /* Fixed position relative to the viewport */
-      top: 20px; /* Stays 20px from the top of the viewport */
-      /* Calculate 'left' to position it relative to the centered article content */
-      /* (Viewport width / 2) + (article_max_width / 2) + gap */
-      /* Using max-width from .article-content, which is 750px */
-      /* Assuming a gap of 50px between the article and TOC as used before */
-      left: calc(50% + 750px/2 + 50px);
-      max-height: calc(100vh - 40px); /* Allow internal scrolling if TOC is long */
+      top: 15px; /* Reduced top offset */
+      /* Recalculate 'left' based on article max-width (700px) and a fixed gap (40px) plus the new TOC width */
+      left: calc(50% + 700px/2 + 40px); /* Adjust based on desired gap */
+      max-height: calc(100vh - 30px); /* Allow internal scrolling if TOC is long, adjusted for top offset */
       overflow-y: auto; /* Enable internal scrollbar */
-      font-size: 0.85em; /* Slightly smaller TOC text */
-      box-shadow: none; /* Removed box-shadow */
+      font-size: 0.78em; /* Further smaller TOC text */
+      box-shadow: none; /* No box-shadow */
       z-index: 100; /* Ensure it stays on top of other content */
     }
 
     .sidebar-toc h2 {
         margin-top: 0;
-        font-size: 1.1em; /* Slightly smaller TOC title */
+        font-size: 0.95em; /* Smaller TOC title */
         color: #130f0e; /* Very dark brown for TOC title */
-        padding-bottom: 10px; /* Slightly less padding */
+        padding-bottom: 6px; /* Reduced padding */
         border-bottom: 1px solid #adaca5; /* Light greyish-green border */
-        margin-bottom: 15px; /* Slightly less margin */
+        margin-bottom: 10px; /* Reduced margin */
         padding-left: 0; /* Align title to left */
     }
 
@@ -156,13 +154,13 @@
     }
 
     .sidebar-toc li {
-      margin-bottom: 6px; /* Slightly less spacing between main list items */
+      margin-bottom: 4px; /* Reduced spacing between main list items */
     }
 
     .sidebar-toc li a {
       text-decoration: none; /* Removed underline by default */
       display: block;
-      padding: 4px 0px; /* Reduced padding for TOC links */
+      padding: 2px 0px; /* Further reduced padding for TOC links */
       color: #5d5238; /* Dark warm brown for TOC links */
       white-space: nowrap;
       overflow: hidden;
@@ -172,15 +170,15 @@
     }
 
     .sidebar-toc ul ul {
-      padding-left: 12px; /* Reduced indentation for nested lists */
-      margin-top: 4px; /* Reduced margin for nested lists */
-      margin-bottom: 4px;
-      border-left: 2px solid #7e7251; /* Medium earthy green-brown for nested border */
+      padding-left: 8px; /* Further reduced indentation for nested lists */
+      margin-top: 2px; /* Reduced margin for nested lists */
+      margin-bottom: 2px;
+      border-left: 1px solid #7e7251; /* Thinner, medium earthy green-brown for nested border */
       border-radius: 0; /* Removed border-radius */
     }
 
     .sidebar-toc ul ul li {
-      margin-bottom: 2px; /* Slightly less spacing for sub-items */
+      margin-bottom: 1px; /* Smallest spacing for sub-items */
     }
 
     /* Active link style for TOC */
@@ -345,7 +343,6 @@ python llms/speculative_decoding.py</code></pre>
                 <li><a href="#conclusion">7. Conclusion</a></li>
             </ul>
         </div>
-        <!-- TOC Menu (Buttons) - Entirely removed as requested -->
     </div>
   </div>
 
