@@ -11,159 +11,134 @@
         scroll-behavior: smooth; /* Enables smooth scrolling for all anchor links */
     }
     body {
-      font-family: 'Inter', Arial, sans-serif; /* Prefer Inter font if available */
+      font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
       line-height: 1.6;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-
-    /* Info Bar at the Top */
-    .info-bar {
-      background-color: #f0f0f0;
-      padding: 8px 20px;
-      border-bottom: 1px solid #ddd;
-      font-size: 0.85em;
-      color: #777;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Subtle shadow */
-    }
-    .info-bar .left-meta span {
-      margin-right: 15px;
-    }
-    .info-bar .ui-user-icon {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-size: cover;
-      vertical-align: middle;
-      margin-right: 5px;
-    }
-    .info-bar .ui-status-lastchange {
-      font-weight: bold;
-    }
-    .info-bar a {
-      color: #2980b9;
-      text-decoration: none;
-    }
-    .info-bar a:hover {
-      text-decoration: underline;
-    }
-    .info-bar .fa {
-      margin-left: 5px;
+      background-color: #fcfbf8; /* Very light, slightly warm off-white for body background */
+      /* Subtle, earthy noise texture for abstractness */
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect x="0" y="0" width="1" height="1" fill="%23f5f4f0" /><rect x="2" y="2" width="1" height="1" fill="%23f5f4f0" /></svg>');
+      background-repeat: repeat;
+      color: #130f0e; /* Very dark brown for main body text */
     }
 
     /* Main Document Container */
     .document-container {
-      max-width: 1200px; /* Overall content width */
-      margin: 20px auto; /* Center the container */
-      padding: 0 20px; /* Horizontal padding for responsiveness */
-      display: flex; /* Flexbox for TOC and main article */
-      align-items: flex-start; /* Align items to the top */
-      gap: 30px; /* Space between TOC and main article */
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
     }
 
     /* Article Content Area */
     .article-content {
-      flex: 1; /* Allows content to take up available space */
-      max-width: 800px; /* Max-width for readability */
-      background-color: #fff;
+      flex: 1;
+      max-width: 800px;
+      background-color: #fdfbf7; /* Slightly warmer off-white for better blend */
       padding: 30px;
-      border-radius: 8px; /* Rounded corners */
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* More prominent shadow */
-      min-width: 0; /* Allow shrinking on small screens */
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Softer shadow for better blend */
+      min-width: 0;
+      position: relative;
     }
 
     /* General Content Styling */
     h1, h2, h3, h4 {
-      color: #2c3e50;
-      padding-bottom: 5px; /* Space below headings */
-      margin-bottom: 15px; /* Space below headings */
-      scroll-margin-top: 80px; /* Offset for sticky info-bar and TOC */
-      border-bottom: 1px solid #eee; /* Light separator */
+      color: #130f0e; /* Very dark brown for headings */
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      scroll-margin-top: 20px;
+      border-bottom: 1px solid #adaca5; /* Light greyish-green border */
     }
-    h1 { font-size: 2.2em; }
-    h2 { font-size: 1.8em; }
-    h3 { font-size: 1.4em; }
-    h4 { font-size: 1.2em; }
+    h1 { font-size: 2.4em; border-bottom: none; } /* Remove border for h1 for a cleaner start */
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.6em; }
+    h4 { font-size: 1.3em; }
 
     p {
-      margin-bottom: 1em;
+      margin-bottom: 1.2em;
     }
 
     ul {
-      margin-bottom: 1em;
-      padding-left: 25px; /* Default list indentation */
+      margin-bottom: 1.2em;
+      padding-left: 30px;
     }
 
     code {
-      background: #eef;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace; /* Monospace for code */
+      background: #f0f0eb; /* Lighter, warm background for inline code */
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95em;
     }
     pre {
-      background: #eee;
-      padding: 15px;
+      background: #ebe8e3; /* Earthy lighter background for code blocks */
+      padding: 20px;
       overflow-x: auto;
-      border-radius: 8px;
-      margin-bottom: 1.5em;
-      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 2em;
+      border: 1px solid #dcdad5; /* Softer border */
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
     pre code {
       background: none;
       padding: 0;
     }
     a {
-      color: #2980b9;
+      color: #5d5238; /* Dark warm brown for primary links */
       text-decoration: none;
+      transition: color 0.2s ease-in-out;
     }
     a:hover {
+      color: #130f0e; /* Very dark brown on hover */
       text-decoration: underline;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      margin: 25px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     table, th, td {
-      border: 1px solid #ddd;
+      border: 1px solid #dcdad5; /* Softer table borders */
     }
     th, td {
-      padding: 12px;
+      padding: 15px;
       text-align: left;
     }
     th {
-      background-color: #f2f2f2;
+      background-color: #f2f0ec; /* Lighter, warm header background */
+      font-weight: bold;
+      color: #5d5238; /* Dark warm brown for table headers */
     }
 
     /* Sidebar Table of Contents (TOC) Styles */
     .sidebar-toc {
-      flex: 0 0 250px; /* Fixed width */
-      padding: 20px; /* Increased padding */
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px; /* Rounded corners */
+      flex: 0 0 250px;
+      padding: 25px;
+      background-color: #fdfbf7; /* Slightly warmer off-white for better blend */
+      border: 1px solid #dcdad5; /* Soft earthy border */
+      border-radius: 12px;
       position: sticky;
       top: 20px;
       max-height: calc(100vh - 40px);
       overflow-y: auto;
       font-size: 0.9em;
-      order: 2; /* Puts TOC on the right */
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Consistent shadow */
+      order: 2;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Softer shadow for better blend */
     }
 
     .sidebar-toc h2 {
         margin-top: 0;
-        font-size: 1.2em;
-        color: #2c3e50;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 15px;
+        font-size: 1.3em;
+        color: #130f0e; /* Very dark brown for TOC title */
+        padding-bottom: 12px;
+        border-bottom: 1px solid #adaca5; /* Light greyish-green border */
+        margin-bottom: 20px;
     }
 
     .sidebar-toc ul {
@@ -174,73 +149,84 @@
     }
 
     .sidebar-toc li {
-      margin-bottom: 5px; /* Spacing between main list items */
+      margin-bottom: 6px;
     }
 
     .sidebar-toc li a {
       display: block;
-      padding: 6px 10px; /* More padding for better click area */
-      color: #555;
+      padding: 8px 12px;
+      color: #5d5238; /* Dark warm brown for TOC links */
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      border-radius: 5px; /* More rounded links */
-      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, font-weight 0.2s ease-in-out; /* Smoother transitions */
+      border-radius: 6px;
+      transition: background-color 0.25s ease-out, color 0.25s ease-out, font-weight 0.25s ease-out, transform 0.25s ease-out;
     }
 
-    .sidebar-toc ul ul { /* Nested lists indentation */
-      padding-left: 18px; /* Deeper indentation */
-      margin-top: 5px;
-      margin-bottom: 5px;
-      border-left: 2px solid #e0e0e0; /* Thicker, more prominent left border */
-      border-radius: 0 0 0 5px; /* Rounded bottom-left corner for the border */
+    .sidebar-toc ul ul {
+      padding-left: 22px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      border-left: 2px solid #7e7251; /* Medium earthy green-brown for nested border */
+      border-radius: 0 0 0 6px;
     }
 
     .sidebar-toc ul ul li {
-      margin-bottom: 2px; /* Less spacing for sub-items */
+      margin-bottom: 3px;
     }
 
-    /* Active link style */
+    /* Active link style for TOC */
     .sidebar-toc li.active > a {
-      color: #fff; /* White text for active */
+      color: white;
       font-weight: bold;
-      background-color: #2980b9; /* Primary blue for active background */
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for active item */
+      background-color: #7e7251; /* Medium earthy green-brown for active link */
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transform: translateX(3px);
     }
 
     /* Hover effect for all TOC links */
     .sidebar-toc li a:hover {
-      background-color: #e6f2fa; /* Lighter blue on hover */
-      color: #2980b9; /* Blue text on hover */
+      background-color: #adaca5; /* Light greyish-green on hover */
+      color: #130f0e; /* Very dark brown text on hover */
       text-decoration: none;
     }
 
     .sidebar-toc li.active > a:hover { /* Override hover for active item */
-        background-color: #246fa4; /* Darker blue on hover for active */
-        color: #fff;
+        background-color: #5d5238; /* Dark warm brown on hover for active */
+        color: white;
+        transform: translateX(3px);
     }
 
-    /* TOC Menu at the bottom of the sidebar */
+    /* TOC Menu at the bottom of the sidebar (BUTTONS) */
     .toc-menu {
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid #eee;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #adaca5; /* Light greyish-green border for menu */
       display: flex;
       flex-direction: column;
-      gap: 10px; /* More space between menu items */
+      gap: 12px;
     }
 
     .toc-menu a {
-      color: #2980b9;
-      font-size: 0.9em;
+      background-color: #7e7251; /* Match active TOC link background */
+      color: white;
+      font-size: 0.95em;
       text-align: center;
-      padding: 5px 0;
-      border-radius: 5px;
-      transition: background-color 0.2s ease-in-out;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .toc-menu a:hover {
-      background-color: #e0eaf1;
+      background-color: #5d5238; /* Match active TOC link hover background */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      transform: translateY(-2px);
+      color: white;
+      text-decoration: none;
     }
 
     /* Responsive Adjustments */
@@ -248,7 +234,7 @@
       .document-container {
         flex-direction: column;
         align-items: center;
-        padding: 0 15px; /* Slightly more padding on small screens */
+        padding: 0 15px;
       }
       .sidebar-toc {
         position: static;
@@ -256,29 +242,18 @@
         overflow-y: visible;
         flex-basis: 100%;
         margin: 0 auto 20px auto;
-        width: 95%; /* Adjust width for small screens */
-        padding: 15px;
+        width: 95%;
+        padding: 20px;
       }
       .article-content {
-        max-width: 95%; /* Adjust max-width for smaller screens */
-        padding: 20px;
+        max-width: 95%;
+        padding: 25px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="info-bar unselectable hidden-print">
-    <small>
-      <span class="left-meta">
-        <span class="ui-lastchangeuser">
-          <i class="ui-user-icon small" style="background-image: url(https://docs.monadical.com/user/nick/avatar.svg);" data-toggle="tooltip" data-placement="right" title="nick"></i>
-        </span>
-        &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
-        <span class="ui-lastchange text-uppercase" data-createtime="Wed Feb 13 2019 22:27:14 GMT+0000 (Coordinated Universal Time)" data-updatetime="Fri May 02 2025 18:46:49 GMT+0000 (Coordinated Universal Time)" title="Fri, May 2, 2025 9:46 PM">a month ago</span>
-      </span>
-      <span class="right-actions">101032 views <a href="/s/blog/edit" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a></span>
-    </small>
-  </div>
+  <!-- The info-bar header has been removed as requested -->
 
   <div id="doc" class="document-container">
     <!-- Article Content (Main Body) -->
@@ -320,9 +295,9 @@
       <h3 id="reinforcement-learning-rl">3.3 Reinforcement Learning (RL)</h3>
       <ul>
         <li><strong>AlphaZero:</strong> Combines Monte Carlo Tree Search (MCTS) with deep networks for planning and learning, as popularized in board games.</li>
-        <li><strong>Model Predictive Control (MPC):</strong> Predicts future outcomes over a horizon to optimize control actions.</li>
+        <li><strong>Model Predictive Control (MPC):</b> Predicts future outcomes over a horizon to optimize control actions.</li>
         <li><strong>Expert Iteration:</strong> Iteratively learns a policy from an expert planner like MCTS.</li>
-        <li><strong>PETS (Probabilistic Ensembles with Trajectory Sampling):</strong> Uses an ensemble of dynamics models to sample and plan optimal actions.</li>
+        <li><strong>PETS (Probabilistic Ensembles with Trajectory Sampling):</b> Uses an ensemble of dynamics models to sample and plan optimal actions.</li>
         <li><strong>Proximal Policy Optimization (PPO):</strong> A stable, effective RL method that limits drastic policy updates.</li>
       </ul>
 
@@ -331,7 +306,7 @@
         <li><strong>Distributed Data Parallel (DDP):</strong> Scales training across GPUs by synchronizing gradients between model replicas.</li>
         <li><strong>Tensor Parallelism:</strong> Splits layers across devices for training very large models.</li>
         <li><strong>Ring Attention (Context Parallel):</strong> Distributes attention computations across devices in a ring structure for handling long contexts.</li>
-        <li><strong>Paged Attention:</strong> Improves memory efficiency for key-value caches, enabling longer sequences and larger batches.</li>
+        <li><strong>Paged Attention:</b> Improves memory efficiency for key-value caches, enabling longer sequences and larger batches.</li>
         <li><strong>Flash Attention:</strong> Fast and memory-efficient attention using custom kernels.</li>
         <li><strong>GPU Communication Algorithms:</strong> Implements collective communication primitives like all-reduce, scatter, and gather.</li>
       </ul>
@@ -339,7 +314,7 @@
       <h3 id="agents-and-tools">3.5 Agents and Tools</h3>
       <ul>
         <li><strong>Minimal Coding Agent:</strong> An AI agent that can autonomously write code, manage Git workflows, and create pull requests.</li>
-        <li><strong>Tool Use & Sandboxing:</strong> Enables controlled LLM interaction with tools like search engines or interpreters.</li>
+        <li><strong>Tool Use & Sandboxing:</b> Enables controlled LLM interaction with tools like search engines or interpreters.</li>
         <li><strong>ReAct (Reasoning + Acting):</strong> Combines chain-of-thought reasoning with action execution and tool use for complex tasks.</li>
       </ul>
 
@@ -348,7 +323,7 @@
       <ul>
         <li><strong>Deep Learning Beginners:</strong> Those with basic understanding looking to implement more advanced ideas.</li>
         <li><strong>Aspiring AI Researchers:</strong> Individuals aiming to break into AI research by getting hands-on with the latest techniques.</li>
-        <li><strong>Educators:</strong> Those seeking practical examples to teach modern AI concepts.</li>
+        <li><strong>Educators:</b> Those seeking practical examples to teach modern AI concepts.</li>
       </ul>
       <p>Its impact lies in lowering the barrier to advanced AI knowledge through a clean, readable, and practical codebase. It enables learners to not just read about but build state-of-the-art systems.</p>
 
@@ -400,37 +375,31 @@ python llms/speculative_decoding.py</code></pre>
     document.addEventListener('DOMContentLoaded', () => {
       const sidebarToc = document.querySelector('.sidebar-toc');
       const tocLinks = sidebarToc.querySelectorAll('a[href^="#"]');
-      // Observe h2 and h3 elements for active state. Add h4 if needed for deeper nesting.
       const contentHeadings = document.querySelectorAll('.article-content h2, .article-content h3, .article-content h4');
       const allTocListItems = sidebarToc.querySelectorAll('li');
 
       // --- Smooth Scrolling ---
       tocLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-          e.preventDefault(); // Prevent default jump behavior and URL change to history
+          e.preventDefault();
 
           const targetId = this.getAttribute('href');
           const targetElement = document.querySelector(targetId);
 
           if (targetElement) {
-            // Scroll smoothly to the target element
             targetElement.scrollIntoView({
               behavior: 'smooth'
             });
-
-            // Update URL hash without adding to browser history
-            // This still updates the URL in the address bar, but won't interfere with the back button.
-            window.location.hash = targetId;
+            window.location.hash = targetId; // Update URL hash without adding to history
           }
         });
       });
 
       // --- Active Section Highlighting (using IntersectionObserver) ---
-      // A slightly more robust rootMargin to ensure a heading is clearly in view
       const observerOptions = {
-        root: null, // viewport
-        rootMargin: '-20% 0px -60% 0px', // Top 20% and bottom 60% of viewport ignored for intersection
-        threshold: 0 // Trigger when element first enters/leaves root
+        root: null,
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0
       };
 
       const observer = new IntersectionObserver((entries) => {
@@ -442,14 +411,11 @@ python llms/speculative_decoding.py</code></pre>
             const correspondingTocListItem = correspondingTocLink.closest('li');
 
             if (entry.isIntersecting) {
-              // Remove active class from all items first
               allTocListItems.forEach(item => item.classList.remove('active'));
 
-              // Add active class to the current item and its ancestors
               let currentItem = correspondingTocListItem;
-              while (currentItem && currentItem !== sidebarToc) { // Stop when reaching the TOC root
+              while (currentItem && currentItem !== sidebarToc) {
                 currentItem.classList.add('active');
-                // Move up to the parent li of the current ul, if available
                 currentItem = currentItem.parentElement.closest('li');
               }
             }
@@ -457,7 +423,6 @@ python llms/speculative_decoding.py</code></pre>
         });
       }, observerOptions);
 
-      // Observe all content headings
       contentHeadings.forEach(heading => {
         observer.observe(heading);
       });
@@ -473,7 +438,7 @@ python llms/speculative_decoding.py</code></pre>
             top: 0,
             behavior: 'smooth'
           });
-          window.location.hash = ''; // Clear hash when going to top
+          window.location.hash = '';
         });
       }
 
@@ -484,14 +449,13 @@ python llms/speculative_decoding.py</code></pre>
             top: document.body.scrollHeight,
             behavior: 'smooth'
           });
-          window.location.hash = ''; // Clear hash or set to specific bottom hash
+          window.location.hash = '';
         });
       }
 
       // --- "Expand all" / "Collapse all" functionality ---
       const expandToggle = document.querySelector('.toc-menu .expand-toggle');
       if (expandToggle) {
-        // Initially hide all nested ULs
         const nestedUls = sidebarToc.querySelectorAll('ul.nav ul.nav');
         nestedUls.forEach(ul => {
             ul.style.display = 'none';
@@ -510,7 +474,7 @@ python llms/speculative_decoding.py</code></pre>
 
           if (anyHidden) {
             nestedUls.forEach(ul => {
-              ul.style.display = 'block'; // Using 'block' for simplicity
+              ul.style.display = 'block';
             });
             expandToggle.textContent = 'Collapse all';
           } else {
