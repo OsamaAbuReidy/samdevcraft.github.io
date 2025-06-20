@@ -24,13 +24,13 @@
 
     /* Main Document Container */
     .document-container {
-      max-width: 1400px; /* Increased width for more side whitespace */
+      max-width: 1300px; /* Adjusted width for more side whitespace */
       margin: 20px auto; /* Center the container */
       padding: 0 30px; /* Increased horizontal padding for responsiveness */
       display: flex; /* Flexbox for TOC and main article */
       align-items: flex-start; /* Align items to the top */
       justify-content: space-between; /* Pushes article to left, TOC to far right */
-      gap: 50px; /* Increased space between article and TOC */
+      gap: 60px; /* Increased space between article and TOC */
     }
 
     /* Article Content Area */
@@ -50,7 +50,7 @@
       color: #130f0e; /* Very dark brown for headings */
       padding-bottom: 10px; /* More padding below headings */
       margin-bottom: 25px; /* More space below headings */
-      /* Increased scroll-margin-top to ensure sticky TOC doesn't overlap headings */
+      /* Critical for sticky TOC: ensures heading isn't hidden behind it */
       scroll-margin-top: 80px; 
       border-bottom: 1px solid #adaca5; /* Light greyish-green border */
     }
@@ -126,11 +126,11 @@
       border: 1px solid #dcdad5; /* Soft earthy border */
       border-radius: 12px;
       position: sticky;
-      top: 20px;
-      max-height: calc(100vh - 40px);
-      overflow-y: auto;
+      top: 20px; /* Stays 20px from the top when scrolling */
+      max-height: calc(100vh - 40px); /* Adjusts height to viewport */
+      overflow-y: auto; /* Adds scrollbar if TOC content overflows height */
       font-size: 0.88em; /* Slightly smaller TOC text */
-      order: 2;
+      order: 2; /* Puts TOC on the right in flex container */
       box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Softer shadow for better blend */
     }
 
@@ -145,7 +145,7 @@
 
     .sidebar-toc ul {
       list-style: none;
-      padding-left: 0;
+      padding-left: 0; /* Ensures no default padding */
       margin-top: 0;
       margin-bottom: 0;
     }
@@ -155,6 +155,7 @@
     }
 
     .sidebar-toc li a {
+      text-decoration: none; /* Removed underline by default */
       display: block;
       padding: 9px 14px; /* Increased padding for TOC links */
       color: #5d5238; /* Dark warm brown for TOC links */
@@ -166,7 +167,7 @@
     }
 
     .sidebar-toc ul ul {
-      padding-left: 25px; /* Deeper indentation */
+      padding-left: 25px; /* Deeper indentation for nested lists */
       margin-top: 8px; /* Increased margin for nested lists */
       margin-bottom: 8px;
       border-left: 2px solid #7e7251; /* Medium earthy green-brown for nested border */
@@ -180,23 +181,23 @@
     /* Active link style for TOC */
     .sidebar-toc li.active > a {
       color: white;
-      font-weight: bold;
+      font-weight: 500; /* As requested, matches provided CSS */
       background-color: #7e7251; /* Medium earthy green-brown for active link */
       box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      transform: translateX(3px);
+      transform: translateX(3px); /* Subtle slide effect for active link */
     }
 
     /* Hover effect for all TOC links */
     .sidebar-toc li a:hover {
       background-color: #adaca5; /* Light greyish-green on hover */
       color: #130f0e; /* Very dark brown text on hover */
-      text-decoration: none;
+      text-decoration: none; /* Ensure no underline on hover */
     }
 
     .sidebar-toc li.active > a:hover { /* Override hover for active item */
         background-color: #5d5238; /* Dark warm brown on hover for active */
         color: white;
-        transform: translateX(3px);
+        transform: translateX(3px); /* Maintain slide effect on hover for active */
     }
 
     /* TOC Menu at the bottom of the sidebar (BUTTONS) */
@@ -240,7 +241,7 @@
         gap: 20px; /* Reduced gap on smaller screens */
       }
       .sidebar-toc {
-        position: static;
+        position: static; /* TOC no longer sticky on small screens */
         max-height: none;
         overflow-y: visible;
         flex-basis: 100%;
@@ -385,15 +386,19 @@ python llms/speculative_decoding.py</code></pre>
       tocLinks.forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
-
+          console.log('TOC link clicked:', this.getAttribute('href')); // Log click
           const targetId = this.getAttribute('href');
           const targetElement = document.querySelector(targetId);
 
           if (targetElement) {
+            console.log('Target element found, attempting to scroll:', targetElement); // Log target
             targetElement.scrollIntoView({
-              behavior: 'smooth'
+              behavior: 'smooth',
+              block: 'start' // Ensure the element is aligned to the top of the scroll area
             });
             window.location.hash = targetId; // Update URL hash without adding to history
+          } else {
+            console.log('Target element not found for:', targetId); // Log if target missing
           }
         });
       });
@@ -414,6 +419,7 @@ python llms/speculative_decoding.py</code></pre>
             const correspondingTocListItem = correspondingTocLink.closest('li');
 
             if (entry.isIntersecting) {
+              // console.log('Intersecting:', id); // Log intersecting heading
               allTocListItems.forEach(item => item.classList.remove('active'));
 
               let currentItem = correspondingTocListItem;
@@ -437,22 +443,24 @@ python llms/speculative_decoding.py</code></pre>
       if (backToTop) {
         backToTop.addEventListener('click', (e) => {
           e.preventDefault();
+          console.log('Back to top clicked'); // Log click
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
           });
-          window.location.hash = '';
+          window.location.hash = ''; // Clear hash when going to top
         });
       }
 
       if (goToBottom) {
         goToBottom.addEventListener('click', (e) => {
           e.preventDefault();
+          console.log('Go to bottom clicked'); // Log click
           window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth'
           });
-          window.location.hash = '';
+          window.location.hash = ''; // Clear hash or set to specific bottom hash
         });
       }
 
@@ -460,12 +468,16 @@ python llms/speculative_decoding.py</code></pre>
       const expandToggle = document.querySelector('.toc-menu .expand-toggle');
       if (expandToggle) {
         const nestedUls = sidebarToc.querySelectorAll('ul.nav ul.nav');
+        // Initially hide all nested ULs only if they are not already set
         nestedUls.forEach(ul => {
-            ul.style.display = 'none';
+            if (ul.style.display === '' || ul.style.display === 'block') { // Prevent re-hiding if already hidden
+              ul.style.display = 'none';
+            }
         });
 
         expandToggle.addEventListener('click', (e) => {
           e.preventDefault();
+          console.log('Expand/Collapse toggle clicked'); // Log click
           const nestedUls = sidebarToc.querySelectorAll('ul.nav ul.nav');
 
           let anyHidden = false;
