@@ -22,21 +22,19 @@
       color: #130f0e; /* Very dark brown for main body text */
     }
 
-    /* Main Document Container */
+    /* Main Document Container (now effectively for the article content only) */
     .document-container {
-      max-width: 1100px; /* Reduced width for more side whitespace */
-      margin: 20px auto; /* Center the container horizontally */
-      padding: 0 40px; /* Reduced horizontal padding for overall whitespace */
-      display: flex; /* Flexbox for TOC and main article */
-      align-items: flex-start; /* Align items to the top */
-      justify-content: space-between; /* Pushes article to left, TOC to far right */
-      gap: 50px; /* Reduced space between article and TOC */
+      max-width: 800px; /* Defines the max width of the main content block */
+      margin: 20px auto; /* Center the article content horizontally */
+      padding: 0; /* Remove internal padding as it's handled by article-content */
+      display: block; /* No longer a flex container for the TOC itself */
+      position: relative; /* For positioning fixed TOC relative to it if needed for specific designs */
     }
 
     /* Article Content Area */
     .article-content {
-      flex: 1;
-      max-width: 600px; /* Adjusted width to leave more space */
+      width: 100%; /* Takes full width of its new parent container */
+      max-width: 750px; /* Actual content width, creates space for fixed TOC */
       background-color: #fdfbf7; /* Slightly warmer off-white for better blend */
       padding: 30px; /* Reduced padding for more compact internal whitespace */
       border-radius: 12px;
@@ -121,18 +119,23 @@
 
     /* Sidebar Table of Contents (TOC) Styles */
     .sidebar-toc {
-      flex: 0 0 180px; /* Shrunk width of TOC even more */
+      width: 180px; /* Fixed width of TOC */
       padding: 0px; /* Removed padding */
       background-color: transparent; /* Removed background color */
       border: none; /* Removed border */
       border-radius: 0; /* Removed border-radius */
-      position: sticky;
-      top: 20px; /* Stays 20px from the top when scrolling */
-      max-height: calc(100vh - 40px); /* Adjusts height to viewport */
-      overflow-y: auto; /* Adds scrollbar if TOC content overflows height */
+      position: fixed; /* Fixed position relative to the viewport */
+      top: 20px; /* Stays 20px from the top of the viewport */
+      /* Calculate 'left' to position it relative to the centered article content */
+      /* (Viewport width / 2) + (article_max_width / 2) + gap */
+      /* Using max-width from .article-content, which is 750px */
+      /* Assuming a gap of 50px between the article and TOC as used before */
+      left: calc(50% + 750px/2 + 50px);
+      max-height: calc(100vh - 40px); /* Allow internal scrolling if TOC is long */
+      overflow-y: auto; /* Enable internal scrollbar */
       font-size: 0.85em; /* Slightly smaller TOC text */
-      order: 2; /* Puts TOC on the right in flex container */
       box-shadow: none; /* Removed box-shadow */
+      z-index: 100; /* Ensure it stays on top of other content */
     }
 
     .sidebar-toc h2 {
@@ -216,7 +219,7 @@
         gap: 20px; /* Reduced gap on smaller screens */
       }
       .sidebar-toc {
-        position: static; /* TOC no longer sticky on small screens */
+        position: static; /* TOC no longer fixed on small screens */
         max-height: none;
         overflow-y: visible;
         flex-basis: 100%;
@@ -250,7 +253,7 @@
         <li><strong>From-Scratch Implementation:</strong> Every component, from the fundamentals to advanced architectures, is implemented without relying on high-level libraries that abstract away internal mechanisms. This ensures deep understanding.</li>
         <li><strong>Minimalism:</strong> The codebase remains concise and free from unnecessary complexity, allowing learners to focus on the core logic of each algorithm.</li>
         <li><strong>Extensive Annotation:</strong> The code is heavily commented to explain subtle details, design choices, and the intuition behind implementations — something often lacking in production-grade repositories.</li>
-        <li><strong>Self-Contained Demos:</strong> Each implementation includes a working demo, enabling users to observe the behavior of the code in practice.</li>
+        <li><strong>Self-Contained Demos:</b> Each implementation includes a working demo, enabling users to observe the behavior of the code in practice.</li>
         <li><strong>Modularity:</strong> The repo is structured to let users explore components independently or combine them to build more complex systems.</li>
       </ul>
 
@@ -350,8 +353,8 @@ python llms/speculative_decoding.py</code></pre>
     document.addEventListener('DOMContentLoaded', () => {
       const sidebarToc = document.querySelector('.sidebar-toc');
       const tocLinks = sidebarToc.querySelectorAll('a[href^="#"]');
-      // Observe h2, h3, h4 elements for active state.
-      const contentHeadings = document.querySelectorAll('.article-content h2, .article-content h3, .article-content h4');
+      // Observe h1, h2, h3, h4 elements for active state.
+      const contentHeadings = document.querySelectorAll('.article-content h1[id], .article-content h2[id], .article-content h3[id], .article-content h4[id]');
       const allTocListItems = sidebarToc.querySelectorAll('li');
 
       // --- Smooth Scrolling for TOC links ---
@@ -412,12 +415,12 @@ python llms/speculative_decoding.py</code></pre>
       }, observerOptions);
 
       // Observe all content headings that have an 'id' attribute
-      document.querySelectorAll('.article-content h1[id], .article-content h2[id], .article-content h3[id], .article-content h4[id]').forEach((section) => {
+      contentHeadings.forEach((section) => {
         observer.observe(section);
       });
 
       // --- Keep TOC expanded by ensuring nested ULs are always visible ---
-      // Removed the 'Expand all' / 'Collapse all' functionality completely.
+      // This JavaScript ensures that the nested lists (sub-sections) are always displayed.
       const nestedUls = sidebarToc.querySelectorAll('ul.nav ul.nav');
       nestedUls.forEach(ul => {
           ul.style.display = 'block'; // Ensure all nested lists are always visible
